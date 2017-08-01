@@ -4,14 +4,59 @@
 <h2>@ViewBag.Title.</h2>
 <h3>@ViewBag.Message</h3>
 
-<address>
-    One Microsoft Way<br />
-    Redmond, WA 98052-6399<br />
-    <abbr title="Phone">P:</abbr>
-    425.555.0100
-</address>
+<h3>C# vs javascript vs ajax</h3>
 
-<address>
-    <strong>Support:</strong>   <a href="mailto:Support@example.com">Support@example.com</a><br />
-    <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
-</address>
+<div class="row">
+    <div class="col-md-4">
+        <div class="col-separador">
+            <h4>C# (Postback)</h4>
+            @using (Html.BeginForm("DuplicadorCantidad_CS", null))
+            {
+                <span>Cantidad a duplicar:</span><input type="number" name="cantidadCS" />
+                <input class="btn btn-primary" type="submit" value="Calcular" />
+                <div>Resultado: @ViewBag.Resultado</div>
+            }
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="col-separador">
+            <h4>Javascript (Sin Postback)</h4>
+            <span>Cantidad a duplicar:</span><input type="number" id="cantidad-js" />
+            <input class="btn btn-primary" type="button" value="Calcular" id="btn-js"/>
+            <div>Resultado: <span id="resultado-js"></span></div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="col-separador">
+            <h4>Ajax (postback parcial)</h4>
+            @using (Ajax.BeginForm("DuplicadorCantidad_Ajax", "Home", 
+                new AjaxOptions()
+                {
+                    HttpMethod = "POST",
+                    InsertionMode = InsertionMode.Replace,
+                    UpdateTargetId = "resultado-ajax"
+                }))
+            {
+                <span>Cantidad a duplicar:</span><input type="number" name="cantidadAjax" />
+                <input class="btn btn-primary" type="submit" value="Calcular" name="btn-cantidad-ajax" />
+                <div>Resultado: <span id="resultado-ajax"></span></div>
+            }
+        </div>
+    </div>
+</div>
+@section scripts{
+    <script>
+        $(function () {
+            $("#btn-js").click(function () {
+                var cantidad = document.getElementById('cantidad-js').value;
+                var duplicado = duplicador(cantidad);
+                document.getElementById('resultado-js').innerHTML = duplicado;
+            })
+
+            function duplicador(cantidad) {
+                return cantidad * 2;
+            }
+        })
+    </script>
+    
+    }
