@@ -56,7 +56,98 @@
             function duplicador(cantidad) {
                 return cantidad * 2;
             }
+            
+            ejempoJavascripts();
         })
+
+        function ejempoJavascripts(){
+            //comparador no estricto == (compara valor, no el tipo)
+            var a = 5;
+            if (a == 5) {
+                //verdadero
+            }
+            if (a == "5") {
+                //verdadero
+            }
+            if (a == 6) {
+                //falso
+            }
+
+            //comparador estricto === (compara valor y tipo)
+            if (a === 5) {
+                //es verdadero
+            }
+            if (a === "5") {
+                //falso
+            }
+
+            //arreglo
+            var arreglo = [];
+            arreglo.push(1); //agregamos un elemento al arreglo
+            arreglo.push(2);
+            arreglo.push('Hola');
+
+            console.log(arreglo);
+
+            arreglo.splice(2, 1);//Elimina desde el elemento 2 elimina un elemento ; en otras palabras elimina el 3° elemento del areglo
+            console.log(arreglo);
+
+            arreglo.push('Hola2');
+            var ultimoElemento = arreglo.pop(); // remueve y devuelve el ultimo elemento del arreglo ("Hola2")
+
+            //la function map me permite aplicarle el resultado de una function a cada valor del arreglo ,
+            //aquin vemos una function anonima (en C# utilizamos el operador lambda)
+            var ArregloDuplicado = arreglo.map(function (valor) {
+                return valor * 2;
+            });
+
+            console.log("Arreglo con el elementos duplicados");
+            console.log(ArregloDuplicado);
+
+            var sonTodosMenoresQue10 = arreglo.every(esMenosQue10);//every son Todos ; si cumple con una function especifica
+            //verdadero
+
+            function esMenosQue10(valor) {
+                return valor < 10;
+            }
+
+            var sonTodosIgualesa5 = arreglo.every(function (valor) {
+                return valor === 5;
+            })//falso
+
+            var algunElementoEs5 = arreglo.some(function (valor) { // algunos; si cumple algun elementos con la function
+                return valor === 5;
+            })
+
+            var numerosPares = arreglo.filter(function (valor) {//filtra los elementos de arreglo para que cumpla con la function
+                return valor % 2 === 0;
+            })
+
+            //Objeto
+            var objeto = {};
+            var objeto2 = {
+                nombre: "Juan", propiedades: 25, unaFunction: esMenosQue10,
+                otraFunction: function (valor) { return valor * 2; }
+            };
+            console.log(objeto2);
+
+            var esMenor = objeto2.unaFunction(9);
+            console.log(esMenor);
+
+            //le agregamos la propiedad apellido al objeto
+            objeto.apellido = "venegas";
+            console.log(objeto);
+
+            //functiones especiales
+            setTimeout(function () {
+                //esta function se ejecuta luego de 2 Segundos
+            }, 2000);
+
+            setInterval(function () {
+                //esta function se ejecuta cada 3 segundos 
+
+            }, 3000);
+        }
     </script>
     
     }
