@@ -54,5 +54,55 @@ namespace CursoMVC5.Controllers
             return Content(cantidadDuplicada.ToString());
             
         }
+
+        [HttpPost]
+        public JsonResult CrearPersona(Persona persona)
+        {
+            //Utilizaremos una clase base para todas nuestras comunicaciones para establecer un estandar
+            var resultado = new BaseRespuesta();
+
+            try
+            {
+                if (persona.Edad < 18)
+                {
+                    throw new ApplicationException("La persona no puede ser menor de Edad");
+                }
+                //codigo para crear persona...
+                resultado.Mensaje = "Persona creada correctamente";
+                resultado.Ok = true;
+
+            }
+            catch(Exception ex)
+            {
+                resultado.Ok = false;
+                resultado.Mensaje = ex.Message;
+            }
+            return Json(resultado);
+        }
+
+        public class Persona
+        {
+            public string Nombre { get; set; }
+            public int Edad { get; set; }
+        }
+
+        public class BaseRespuesta
+        {
+            public bool Ok { get; set; }
+            public string Mensaje { get; set; }
+        }
+
+        public PartialViewResult SeccionPrueba()
+        {
+            var personas = new List<Persona>()
+            {
+                new Persona() {Nombre="Juan", Edad=999 },
+                new Persona() { Nombre = "Juan", Edad = 999 },
+                new Persona() { Nombre = "Juan", Edad = 999 },
+                new Persona() { Nombre = "Juan", Edad = 999 },
+        
+            };
+            return PartialView("_Prueba", personas);
+        }
     }
 }

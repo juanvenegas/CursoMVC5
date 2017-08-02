@@ -9,6 +9,23 @@
 <br />
 Duplicado : <span id="spanDuplicado"></span>
 
+<h3>Ejemplo Jquery.post enviando un objeto</h3>
+<div>
+    <div>
+        <label>Nombre:</label>
+        <input type="text" id="txtNombre"/>
+    </div>
+    <div>
+        <label>Edad:</label>
+        <input type="number" id="txtEdad"/>
+    </div>
+    <input type="button" value="Crear" id="btnCrearPersona"/>
+</div>
+<div id="div-alerta"><div id="mensaje-alerta"></div></div>
+
+<h3>Ejemplo 3 : jqueryy.get - cargar una seccion de la pagina de manera asincrona</h3>
+<input type="button" value="Cargar" id="btnCargar" />
+<div id="divGet"></div>
 @section scripts{
     <script>
         $(function () {
@@ -33,6 +50,36 @@ Duplicado : <span id="spanDuplicado"></span>
                 //err.responseText es un texto del error (no siempre recomendable mostrar)
                 console.log(err.responseText);
             }
+
+
+            //Ejemplo 2 jquery.post enviando un objeto
+            $("#btnCrearPersona").click(function () {
+                var url = "@Url.Action("CrearPersona", "Home")";
+                var nombre = $("#txtNombre").val();
+                var edad = $("#txtEdad").val();
+                var data = { Nombre: nombre, Edad: edad };
+
+                $.post(url, data).done(function (data) {
+                    if (data.Ok) {
+                        $("#div-alerta").removeClass("alert-danger").addClass("alert-success").slideDown(200);
+                    }
+                    else {
+                        $("#div-alerta").removeClass("alert-success").addClass("alert-danger").slideDown(200);
+                    }
+
+                    $("#mensaje-alerta").html(data.Mensaje);
+                }).fail(manejarErrorAjax);
+            });
+
+            //Ejemplo 3: jquery.get
+            $("#btnCargar").click(function () {
+                $(this).prop("disabled", "disabled");
+                var url = "@Url.Action("SeccionPrueba","Home")";
+                $.get(url).done(function (data) {
+                    $("#divGet").append(data);
+                }).fail(manejarErrorAjax);
+            });
+
         })
     </script>
     }
