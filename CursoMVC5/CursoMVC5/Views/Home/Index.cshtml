@@ -26,12 +26,62 @@ Duplicado : <span id="spanDuplicado"></span>
 <h3>Ejemplo 3 : jqueryy.get - cargar una seccion de la pagina de manera asincrona</h3>
 <input type="button" value="Cargar" id="btnCargar" />
 <div id="divGet"></div>
+
+<h3>Ejemplo 1: Ajax.Form </h3>
+
+@using (Ajax.BeginForm("Duplicador", new AjaxOptions()
+{
+    HttpMethod = "Post",
+    InsertionMode = InsertionMode.Replace,
+    UpdateTargetId = "spanDuplicadoAjax"
+}))
+{
+    <input type="number" name="cantidad" /><input type="submit" value="Duplicar" />
+}
+Resultado <span id="spanDuplicadoAjax"></span>
+
+<h3>Ejemplo 2: Ajax.Form Loading ,confirm </h3>
+
+@using (Ajax.BeginForm("Duplicador", new AjaxOptions()
+{
+    HttpMethod = "Post",
+    InsertionMode = InsertionMode.Replace,
+    UpdateTargetId = "spanDuplicadoAjax2",
+    LoadingElementId = "loading",
+    Confirm = "Está seguro que desea duplicar este número"
+}))
+{
+    <input type="number" name="cantidad" /><input type="submit" value="Duplicar" />
+    <img src = "../../Content/loading.gif" style="display:none;width:40px;" id="loading"/>
+}
+Resultado <span id="spanDuplicadoAjax2"></span>
+
+<h3>Ejemplo 2: Ajax.Form Funciones de javascript </h3>
+
+@using (Ajax.BeginForm("Duplicador", new AjaxOptions()
+{
+    HttpMethod = "Post",
+    InsertionMode = InsertionMode.Replace,
+    UpdateTargetId = "spanDuplicadoAjax3",
+    LoadingElementId = "loading2",
+    OnBegin = "onBegin",
+    OnSuccess = "onSuccess",
+    OnComplete = "onComplete",
+    OnFailure = "onFailure"
+}))
+{
+    <input type="number" name="cantidad" /><input type="submit" value="Duplicar" />
+    <img src="../../Content/loading.gif" style="display:none;width:40px;" id="loading2" />
+}
+Resultado <span id="spanDuplicadoAjax3"></span>
+
 @section scripts{
+<script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
     <script>
         $(function () {
             //Ejemplo 1: jquery.post simple
             $("#btnDuplicar").click(function () {
-                var url = "@Url.Action("Duplicador","Home")";
+                var url = "@Url.Action("Duplicador", "Home")";
                 var cantidad = $("#txtDuplicador").val();
                 var data = { cantidad: cantidad };
 
@@ -74,12 +124,29 @@ Duplicado : <span id="spanDuplicado"></span>
             //Ejemplo 3: jquery.get
             $("#btnCargar").click(function () {
                 $(this).prop("disabled", "disabled");
-                var url = "@Url.Action("SeccionPrueba","Home")";
+                var url = "@Url.Action("SeccionPrueba", "Home")";
                 $.get(url).done(function (data) {
                     $("#divGet").append(data);
                 }).fail(manejarErrorAjax);
             });
 
+            function onBegin(respuesta) {
+                console.log("begin");
+            }
+
+            function onSuccess(respuesta) {
+                console.log("Success");
+            }
+
+            function onComplete(respuesta) {
+                console.log("Complete");
+                console.log(respuesta);
+            }
+
+            function onFailure(a) {
+                console.log("error");
+                console.log(a);
+            }
         })
     </script>
     }

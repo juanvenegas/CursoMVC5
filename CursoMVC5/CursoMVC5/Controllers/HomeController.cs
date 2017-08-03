@@ -30,6 +30,7 @@ namespace CursoMVC5.Controllers
         [HttpPost]
         public JsonResult Duplicador(double cantidad)
         {
+            System.Threading.Thread.Sleep(2000);
             var duplicado = cantidad * 2;
             return Json(duplicado);
         }
@@ -96,10 +97,10 @@ namespace CursoMVC5.Controllers
         {
             var personas = new List<Persona>()
             {
-                new Persona() {Nombre="Juan", Edad=999 },
-                new Persona() { Nombre = "Juan", Edad = 999 },
-                new Persona() { Nombre = "Juan", Edad = 999 },
-                new Persona() { Nombre = "Juan", Edad = 999 },
+                new Persona() { Nombre="Juan1", Edad=999 },
+                new Persona() { Nombre = "Juan2", Edad = 999 },
+                new Persona() { Nombre = "Juan3", Edad = 99 },
+                new Persona() { Nombre = "Juan4", Edad = 9 },
         
             };
             return PartialView("_Prueba", personas);
