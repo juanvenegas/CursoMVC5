@@ -100,10 +100,40 @@ namespace CursoMVC5.Controllers
                 new Persona() { Nombre="Juan1", Edad=999 },
                 new Persona() { Nombre = "Juan2", Edad = 999 },
                 new Persona() { Nombre = "Juan3", Edad = 99 },
-                new Persona() { Nombre = "Juan4", Edad = 9 },
+                new Persona() { Nombre = "Juan4", Edad = 9 }
         
             };
             return PartialView("_Prueba", personas);
+        }
+
+        //ejemplo del capitulo 86
+        public PartialViewResult SeccionPruebaAjaxActionLink()
+        {
+            return PartialView("_Prueba", _personas);
+        }
+
+        private List<Persona> _personas;
+
+        public HomeController()
+        {
+            _personas = new List<Persona>()
+            {
+                new Persona() { Nombre="Juan1", Edad=999 },
+                new Persona() { Nombre = "aaaa", Edad = 999 },
+                new Persona() { Nombre = "bbbbb", Edad = 99 },
+                new Persona() { Nombre = "ccccc", Edad = 9 }
+            };
+        }
+
+        public PartialViewResult SeccionPruebaAjaxActionLinkExample2()
+        {
+            return PartialView("_Prueba2", _personas);
+        }
+
+        public PartialViewResult DetallePersona(string Nombre)
+        {
+            var persona = _personas.FirstOrDefault(x => x.Nombre == Nombre);
+            return PartialView("_DetallePersona", persona);
         }
     }
 }
