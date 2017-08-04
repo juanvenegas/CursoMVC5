@@ -75,8 +75,16 @@ Resultado <span id="spanDuplicadoAjax2"></span>
 }
 Resultado <span id="spanDuplicadoAjax3"></span>
 
+<h3>Ejemplo: Jquery UI - Autocompletar</h3>
+
+<label for="persona">Persona</label>
+<input type="text" name="persona" id="persona" />
+
+
 @section scripts{
 <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+<script src="~/Scripts/jquery-ui-1.12.1.js"></script>
+
     <script>
         $(function () {
             //Ejemplo 1: jquery.post simple
@@ -148,5 +156,13 @@ Resultado <span id="spanDuplicadoAjax3"></span>
                 console.log(a);
             }
         })
+    </script>
+
+    <script>
+        $(function () {
+            $("#persona").autocomplete({
+                source: "/Home/BuscarPersonas", minLength:2
+            });
+        });
     </script>
     }

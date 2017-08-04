@@ -118,10 +118,11 @@ namespace CursoMVC5.Controllers
         {
             _personas = new List<Persona>()
             {
-                new Persona() { Nombre="Juan1", Edad=999 },
-                new Persona() { Nombre = "aaaa", Edad = 999 },
-                new Persona() { Nombre = "bbbbb", Edad = 99 },
-                new Persona() { Nombre = "ccccc", Edad = 9 }
+                new Persona() { Nombre="Juan Venegas", Edad=999 },
+                new Persona() { Nombre = "Emelyn Diaz", Edad = 999 },
+                new Persona() { Nombre = "Felipe Muñoz", Edad = 99 },
+                new Persona() { Nombre = "Luis Tejo", Edad = 9 },
+                new Persona() { Nombre = "Marlon Montoya", Edad = 9 }
             };
         }
 
@@ -134,6 +135,13 @@ namespace CursoMVC5.Controllers
         {
             var persona = _personas.FirstOrDefault(x => x.Nombre == Nombre);
             return PartialView("_DetallePersona", persona);
+        }
+
+        public JsonResult BuscarPersonas(string term)
+        {
+            var resultado = _personas.Where(x => x.Nombre.ToLower().Contains(term)).Select(x => x.Nombre).Take(5).ToList();//Contains = es que contenga
+            //si coloco StartsWith = es que comience con 
+            return Json(resultado, JsonRequestBehavior.AllowGet);
         }
     }
 }
