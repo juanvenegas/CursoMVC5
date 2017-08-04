@@ -317,6 +317,7 @@
     <Content Include="Views\Home\_Prueba.cshtml" />
     <Content Include="Views\Home\_Prueba2.cshtml" />
     <Content Include="Views\Home\_DetallePersona.cshtml" />
+    <Content Include="Views\Home\_personas.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

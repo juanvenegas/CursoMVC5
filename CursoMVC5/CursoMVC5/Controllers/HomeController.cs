@@ -118,11 +118,11 @@ namespace CursoMVC5.Controllers
         {
             _personas = new List<Persona>()
             {
-                new Persona() { Nombre="Juan Venegas", Edad=999 },
-                new Persona() { Nombre = "Emelyn Diaz", Edad = 999 },
-                new Persona() { Nombre = "Felipe Muñoz", Edad = 99 },
-                new Persona() { Nombre = "Luis Tejo", Edad = 9 },
-                new Persona() { Nombre = "Marlon Montoya", Edad = 9 }
+                new Persona() { Nombre="Juan Venegas", Edad=25 },
+                new Persona() { Nombre = "Emelyn Diaz", Edad = 23 },
+                new Persona() { Nombre = "Felipe Muñoz", Edad = 27 },
+                new Persona() { Nombre = "Luis Tejo", Edad = 27 },
+                new Persona() { Nombre = "Marlon Montoya", Edad = 31 }
             };
         }
 
@@ -142,6 +142,18 @@ namespace CursoMVC5.Controllers
             var resultado = _personas.Where(x => x.Nombre.ToLower().Contains(term)).Select(x => x.Nombre).Take(5).ToList();//Contains = es que contenga
             //si coloco StartsWith = es que comience con 
             return Json(resultado, JsonRequestBehavior.AllowGet);
+        }
+
+        public PartialViewResult CambioSlider(int min,int max)
+        {
+            var query = _personas.Where(x => x.Edad >= min);
+            if (max < 61)
+            {
+                query = query.Where(x => x.Edad <= max);
+            }
+            var personas = query.ToList();
+
+            return PartialView("_personas", personas);
         }
     }
 }
