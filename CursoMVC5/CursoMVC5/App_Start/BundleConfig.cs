@@ -9,7 +9,13 @@ namespace CursoMVC5
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                        "~/Scripts/jquery-{version}.js"));
+                        "~/Scripts/jquery-{version}.js",
+                        "~/Scripts/jquery-ui-{version}.js",
+                        "~/Scripts/jquery.unobtrusive-ajax.js"));
+
+            //Para adicionar la carpeta al bundles
+            //bundles.Add(new ScriptBundle("~/bundles/lib").IncludeDirectory(
+            //    "~/Scripts/lib","*.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
@@ -26,6 +32,7 @@ namespace CursoMVC5
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
+            BundleTable.EnableOptimizations = true;
         }
     }
 }
